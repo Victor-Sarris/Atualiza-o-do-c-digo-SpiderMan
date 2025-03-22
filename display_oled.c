@@ -13,6 +13,7 @@
 // Configuração do pino do buzzer
 #define BUZZER_PIN 21
 
+
 // Definição das frequências das notas musicais (em Hz)
 #define NOTE_C4  262
 #define NOTE_CS4 277
@@ -39,6 +40,17 @@
 #define NOTE_AS5 932
 #define NOTE_B5  988
 #define NOTE_REST 0  // Pausa
+
+// Configuração dos botões
+void setup_buttons() {
+    gpio_init(BUTTON_A);
+    gpio_set_dir(BUTTON_A, GPIO_IN);
+    gpio_pull_up(BUTTON_A);
+
+    gpio_init(BUTTON_B);
+    gpio_set_dir(BUTTON_B, GPIO_IN);
+    gpio_pull_up(BUTTON_B);
+}
 
 // Estrutura para representar uma nota musical
 typedef struct {
@@ -196,8 +208,11 @@ int main()
 {
     stdio_init_all();
     pwm_init_buzzer(BUZZER_PIN);
+    setup_buttons();
 
     stdio_init_all();   // Inicializa os tipos stdio padrão presentes ligados ao binário
+
+    
 
     npInit(LED_PIN);
     npClear(); // Apaga LEDs inicialmente
